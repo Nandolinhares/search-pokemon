@@ -2,6 +2,14 @@
   "name": "search-pokemon",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open",
+    "test": "jest --passWithNoTests --no-cache --runInBand",
+    "test:watch": "yarn test -- --watch",
+    "test:staged": "yarn test -- --findRelatedTests",
+    "test:ci": "yarn test -- --coverage"
+  },
+  "author": "Fernando Linhares <fernandolinhares1920@globo.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/axios": "^0.14.0",
