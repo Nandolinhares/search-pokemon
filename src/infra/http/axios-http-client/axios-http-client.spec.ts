@@ -1,7 +1,7 @@
-import { HttpPostClient, HttpResponse, HttpPostParams } from '@/data/protocols/http'
 import { mockPostRequest } from '@/data/test/mock-post-request'
 import { mockAxios } from '@/infra/test/mock-axios'
 import axios from 'axios'
+import { AxiosHttpClient } from './axios-hhtp-client'
 
 jest.mock('axios')
 
@@ -17,16 +17,6 @@ const makeSut = (): SutTypes => {
   return {
     sut,
     mockedAxios
-  }
-}
-
-class AxiosHttpClient implements HttpPostClient<any, any> {
-  async post (params: HttpPostParams<any>): Promise<HttpResponse<any>> {
-    const httpResponse = await axios.post(params.url, params.body)
-    return {
-      statusCode: httpResponse.status,
-      body: httpResponse.data
-    }
   }
 }
 
