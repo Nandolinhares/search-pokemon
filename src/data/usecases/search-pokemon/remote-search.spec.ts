@@ -53,4 +53,20 @@ describe('SearchPokemon', () => {
     const promise = sut.search(mockSearch())
     await expect(promise).rejects.toThrow(new ServerError())
   })
+
+  test('Should return an object if HttpPostClient returns 200', async () => {
+    const { sut, httpPostClientSpy } = makeSut()
+    const mockResult = {
+      name: faker.name.firstName(),
+      sprites: {
+        imageUrl: ''
+      }
+    }
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+      body: mockResult
+    }
+    const result = await sut.search(mockSearch())
+    expect(typeof result).toBe('object')
+  })
 })
