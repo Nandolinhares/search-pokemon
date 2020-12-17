@@ -1,3 +1,22 @@
 * {
   font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.mainSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80vh;
+  justify-content: center;
+
+  .logo {
+    margin: 28px;
+  }
+
+  .form {
+    display: flex;
+    justify-content: space-between;
+  }
 }
