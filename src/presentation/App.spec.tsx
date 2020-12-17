@@ -1,16 +1,8 @@
 import React from 'react'
 import { render, cleanup, RenderResult, fireEvent } from '@testing-library/react'
+import { SearchPokemonSpy } from './test/mock-pokemon-search'
 import App from './App'
-import { PokemonParams, SearchPokemon } from '@/domain/usecases/search-pokemon'
 import faker from 'faker'
-
-class SearchPokemonSpy implements SearchPokemon {
-  params: PokemonParams
-  async search (params: PokemonParams): Promise<object> {
-    this.params = params
-    return await Promise.resolve({})
-  }
-}
 
 type SutTypes = {
   sut: RenderResult

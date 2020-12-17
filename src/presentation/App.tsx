@@ -11,7 +11,8 @@ type Props = {
 
 const App: React.FC<Props> = ({ searchPokemon }: Props) => {
   const [state, setState] = useState({
-    pokemonName: ''
+    pokemonName: '',
+    pokemon: {}
   })
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -28,7 +29,12 @@ const App: React.FC<Props> = ({ searchPokemon }: Props) => {
       name: state.pokemonName
     }
 
-    await searchPokemon.search(pokemonParams)
+    const pokemonResult = await searchPokemon.search(pokemonParams)
+
+    setState({
+      ...state,
+      pokemon: pokemonResult
+    })
   }
 
   return (
@@ -43,9 +49,11 @@ const App: React.FC<Props> = ({ searchPokemon }: Props) => {
           name="pokemonName"
           onChange={handleChange}
           value={state.pokemonName}
+          className={Styles.input}
         />
         <Button type="submit" variant="contained" color="primary" >Pesquisar</Button>
       </form>
+      {console.log(state.pokemon)}
     </section>
   )
 }

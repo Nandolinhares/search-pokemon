@@ -37,7 +37,11 @@ module.exports = {
   devServer: {
     contentBase: './public',
     writeToDisk: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    host: 'localhost',
+    port: 8080,
+    https: false,
+    disableHostCheck: true
   },
   externals: {
     react: 'React',

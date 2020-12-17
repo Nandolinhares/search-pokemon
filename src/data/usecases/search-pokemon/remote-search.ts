@@ -1,17 +1,16 @@
-import { HttpPostClient, HttpStatusCode } from '@/data/protocols/http'
+import { HttpGetClient, HttpStatusCode } from '@/data/protocols/http'
 import { ServerError, NotFoundError } from '@/domain/errors'
 import { PokemonParams, SearchPokemon } from '@/domain/usecases/search-pokemon'
 
 export class RemoteSearch implements SearchPokemon {
   constructor (
     private readonly url: string,
-    private readonly httpPostClient: HttpPostClient<PokemonParams, object>
+    private readonly httpGetClient: HttpGetClient<object>
   ) {}
 
   async search (params: PokemonParams): Promise<object> {
-    const httpResponse = await this.httpPostClient.post({
-      url: this.url,
-      body: params
+    const httpResponse = await this.httpGetClient.get({
+      url: `${this.url}/${params.name}`
     })
 
     switch (httpResponse.statusCode) {

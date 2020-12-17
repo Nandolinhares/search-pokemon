@@ -8,7 +8,7 @@ export const mockAxios = (): jest.Mocked<typeof axios> => {
     status: faker.random.number()
   }
 
-  mockedAxios.post.mockResolvedValue(mockedAxiosResult)
+  mockedAxios.get.mockResolvedValue(mockedAxiosResult)
 
   return mockedAxios
 }

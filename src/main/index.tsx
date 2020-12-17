@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from '@/presentation/App'
+import MakeApp from '@/main/factories/pages/app/app-factory'
 // Styles
 import '@/presentation/styles/global.scss'
 
-ReactDOM.render(<App />, document.getElementById('main'))
+ReactDOM.render(<MakeApp />, document.getElementById('main'))
