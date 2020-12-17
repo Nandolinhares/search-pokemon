@@ -2,7 +2,9 @@ import React from 'react'
 
 const App: React.FC = () => {
   return (
-    <h1>Hello World</h1>
+    <section>
+      <img src="https://i.ibb.co/WnpST6t/pokeshop.png" alt="pokeshop" />
+    </section>
   )
 }
 
