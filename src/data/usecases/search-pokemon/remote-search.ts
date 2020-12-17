@@ -4,7 +4,7 @@ import { PokemonParams, SearchPokemon } from '@/domain/usecases/search-pokemon'
 export class RemoteSearch implements SearchPokemon {
   constructor (
     private readonly url: string,
-    private readonly httpPostClient: HttpPostClient
+    private readonly httpPostClient: HttpPostClient<PokemonParams, object>
   ) {}
 
   async search (params: PokemonParams): Promise<object> {

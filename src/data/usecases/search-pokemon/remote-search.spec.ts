@@ -1,15 +1,16 @@
 import { HttpPostClientSpy } from '@/data/test/mock-http-client'
 import { RemoteSearch } from './remote-search'
 import { mockSearch } from '@/domain/test/mock-search'
+import { PokemonParams } from '@/domain/usecases/search-pokemon'
 import faker from 'faker'
 
 type SutParams = {
   sut: RemoteSearch
-  httpPostClient: HttpPostClientSpy
+  httpPostClient: HttpPostClientSpy<PokemonParams, object>
 }
 
 const makeSut = (url: string = faker.internet.url()): SutParams => {
-  const httpPostClient = new HttpPostClientSpy()
+  const httpPostClient = new HttpPostClientSpy<PokemonParams, object>()
   const sut = new RemoteSearch(url, httpPostClient)
   return {
     sut,
