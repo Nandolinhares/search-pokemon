@@ -1,32 +1,46 @@
 import { HttpPostClient, HttpResponse, HttpPostParams } from '@/data/protocols/http'
 import { mockPostRequest } from '@/data/test/mock-post-request'
+import { mockAxios } from '@/infra/test/mock-axios'
 import axios from 'axios'
-import faker from 'faker'
 
 jest.mock('axios')
 
-const mockedAxios = axios as jest.Mocked<typeof axios>
-const mockedAxiosResult = {
-  data: faker.random.objectElement(),
-  status: faker.random.number()
+type SutTypes = {
+  sut: AxiosHttpClient
+  mockedAxios: jest.Mocked<typeof axios>
 }
 
-mockedAxios.post.mockResolvedValue(mockedAxiosResult)
+const makeSut = (): SutTypes => {
+  const sut = new AxiosHttpClient()
+  const mockedAxios = mockAxios()
+
+  return {
+    sut,
+    mockedAxios
+  }
+}
 
 class AxiosHttpClient implements HttpPostClient<any, any> {
   async post (params: HttpPostParams<any>): Promise<HttpResponse<any>> {
-    await axios.post(params.url, params.body)
-    return await Promise.resolve({
-      statusCode: 200
-    })
+    const httpResponse = await axios.post(params.url, params.body)
+    return {
+      statusCode: httpResponse.status,
+      body: httpResponse.data
+    }
   }
 }
 
 describe('AxiosHttpClient', () => {
   test('Should call axios with correct url and body', async () => {
-    const sut = new AxiosHttpClient()
+    const { sut, mockedAxios } = makeSut()
     const request = mockPostRequest()
     await sut.post(request)
     expect(mockedAxios.post).toHaveBeenCalledWith(request.url, request.body)
+  })
+
+  test('Should return the correct statusCode and body', async () => {
+    const { sut, mockedAxios } = makeSut()
+    const promise = sut.post(mockPostRequest())
+    expect(promise).toEqual(mockedAxios.post.mock.results[0].value) // 0 É resolved e 1 rejecteds. Comparando promise com promise
   })
 })
