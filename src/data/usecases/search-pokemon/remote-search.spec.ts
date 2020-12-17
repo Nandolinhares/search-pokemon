@@ -5,6 +5,7 @@ import { PokemonParams } from '@/domain/usecases/search-pokemon'
 import { NotFoundError } from '@/domain/errors/not-found-error'
 import faker from 'faker'
 import { HttpStatusCode } from '@/data/protocols/http/http-response'
+import { ServerError } from '@/domain/errors/server-error'
 
 type SutParams = {
   sut: RemoteSearch
@@ -42,5 +43,14 @@ describe('SearchPokemon', () => {
     }
     const promise = sut.search(mockSearch())
     await expect(promise).rejects.toThrow(new NotFoundError())
+  })
+
+  test('Should throw ServerError if HttpPostClient returns 500', async () => {
+    const { sut, httpPostClientSpy } = makeSut()
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.serverError
+    }
+    const promise = sut.search(mockSearch())
+    await expect(promise).rejects.toThrow(new ServerError())
   })
 })
