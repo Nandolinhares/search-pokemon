@@ -1,7 +1,5 @@
-import { HttpPostClient } from '@/data/protocols/http/http-post-client'
-import { HttpStatusCode } from '@/data/protocols/http/http-response'
-import { NotFoundError } from '@/domain/errors/not-found-error'
-import { ServerError } from '@/domain/errors/server-error'
+import { HttpPostClient, HttpStatusCode } from '@/data/protocols/http'
+import { ServerError, NotFoundError } from '@/domain/errors'
 import { PokemonParams, SearchPokemon } from '@/domain/usecases/search-pokemon'
 
 export class RemoteSearch implements SearchPokemon {

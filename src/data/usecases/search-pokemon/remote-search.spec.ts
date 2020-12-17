@@ -2,10 +2,9 @@ import { HttpPostClientSpy } from '@/data/test/mock-http-client'
 import { RemoteSearch } from './remote-search'
 import { mockSearch } from '@/domain/test/mock-search'
 import { PokemonParams } from '@/domain/usecases/search-pokemon'
-import { NotFoundError } from '@/domain/errors/not-found-error'
-import faker from 'faker'
+import { NotFoundError, ServerError } from '@/domain/errors'
 import { HttpStatusCode } from '@/data/protocols/http/http-response'
-import { ServerError } from '@/domain/errors/server-error'
+import faker from 'faker'
 
 type SutParams = {
   sut: RemoteSearch
