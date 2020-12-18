@@ -22,10 +22,17 @@ body {
   
     .logo {
       margin: 28px;
+      @media only screen and (max-width: 599px) {
+        width: 90%;
+      }
     }
   }
 
   .favorite {
     align-self: baseline;
+
+    @media only screen and (max-width: 599px) {
+      margin-left: 20px;
+    }
   }
 }

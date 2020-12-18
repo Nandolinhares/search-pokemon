@@ -1,14 +1,15 @@
 import React, { useContext } from 'react'
-// MUI Stuff
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
 import { NotFoundError } from '@/domain/errors'
 import Context from '@/presentation/contexts/main-context'
 // Styles
 import Styles from './form-styles.scss'
+// MUI Stuff
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const Form: React.FC = () => {
-  const { state, setState, searchPokemon } = useContext(Context)
+  const { state, setState, searchPokemon, isLoading, setIsLoading } = useContext(Context)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setState({
       ...state,
@@ -24,8 +25,10 @@ const Form: React.FC = () => {
         return
       }
 
+      setIsLoading(true)
+
       const pokemonParams = {
-        name: state.pokemonName
+        name: state.pokemonName.toLowerCase()
       }
 
       const pokemonResult = await searchPokemon.search(pokemonParams)
@@ -41,6 +44,7 @@ const Form: React.FC = () => {
           pokemon: null,
           mainError: 'Pokemon não encontrado'
         })
+        setIsLoading(false)
         throw new NotFoundError()
       }
     }
@@ -57,7 +61,10 @@ const Form: React.FC = () => {
         value={state.pokemonName}
         className={Styles.input}
       />
-      <Button type="submit" variant="contained" color="primary" >Pesquisar</Button>
+      <Button type="submit" variant="contained" color="primary">
+        Pesquisar
+        {isLoading && (<CircularProgress color="secondary" />)}
+      </Button>
     </form>
   )
 }
