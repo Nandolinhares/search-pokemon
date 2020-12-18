@@ -36,8 +36,8 @@ const Result: React.FC = () => {
         <>
           <h2>Resultado da busca</h2>
           <Paper elevation={2} className={Styles.paper}>
-            {state.pokemon.sprites.front_default !== undefined && <img src={state.pokemon.sprites.front_default} alt={state.pokemon.name} className={Styles.img} />}
-            {state.pokemon && <h2 className={Styles.h2}>Nome: {state.pokemon.name}</h2>}
+            <img src={state.pokemon.sprites.front_default} alt={state.pokemon.name} className={Styles.img} />
+            <h2 className={Styles.h2}>Nome: {state.pokemon.name}</h2>
             <Button variant="contained" color="secondary" className={Styles.button} onClick={handleClick}>Adicionar a favoritos</Button>
           </Paper>
         </>
