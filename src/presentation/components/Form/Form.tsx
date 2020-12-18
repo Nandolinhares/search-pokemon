@@ -28,7 +28,7 @@ const Form: React.FC = () => {
       setIsLoading(true)
 
       const pokemonParams = {
-        name: state.pokemonName
+        name: state.pokemonName.toLowerCase()
       }
 
       const pokemonResult = await searchPokemon.search(pokemonParams)

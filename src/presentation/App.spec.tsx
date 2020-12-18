@@ -21,13 +21,13 @@ const makeSut = (): SutTypes => {
 describe('App', () => {
   afterEach(cleanup)
 
-  test('Should start with initial state', () => {
+  test('Should starts with initial state', () => {
     const { sut } = makeSut()
     const element = sut.getByTestId('main-section')
     expect(element.childElementCount).toBe(3)
   })
 
-  test('Should start with initial state', () => {
+  test('Should Result component starts with initial state', () => {
     const { sut } = makeSut()
     const element = sut.getByTestId('result-section')
     expect(element.childElementCount).toBe(0)
@@ -35,7 +35,7 @@ describe('App', () => {
 
   test('Should call searchPokemon with correct value', async () => {
     const { sut, searchPokemonSpy } = makeSut()
-    const pokemonName = faker.random.word()
+    const pokemonName = faker.random.word().toLowerCase()
     const input = sut.getByTestId('input')
     fireEvent.input(input, { target: { value: pokemonName } })
     const form = sut.getByTestId('form')
