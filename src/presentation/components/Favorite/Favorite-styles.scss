@@ -1,0 +1,35 @@
+.paper {
+  padding: 28px;
+
+  .h2, .h3 {
+    text-align: center;
+  }
+
+  .h3 {
+    font-weight: 200;
+    margin-top: 28px;
+  }
+
+  .section {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .paperSecondary {
+      padding: 28px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      margin: 10px;
+
+      .img {
+        width: 200px;
+      }
+    }
+
+    .button {
+      margin-top: 28px;
+    }
+  }
+}
