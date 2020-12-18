@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Context from '@/presentation/contexts/main-context'
 // Styles
 import Styles from './styles/global.scss'
@@ -22,8 +22,14 @@ const App: React.FC<Props> = ({ searchPokemon }: Props) => {
     mainError: ''
   })
 
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [state.pokemon])
+
   return (
-    <Context.Provider value={{ state, setState, searchPokemon }}>
+    <Context.Provider value={{ state, setState, searchPokemon, isLoading, setIsLoading }}>
       <Grid container className={Styles.wrap} spacing={2}>
         <Grid item xs={12} sm={8} md={8} lg={8} data-testid="main-section" className={Styles.mainSection}>
           <img src="https://i.ibb.co/WnpST6t/pokeshop.png" alt="pokeshop" className={Styles.logo} />
