@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import Styles from './styles/global.scss'
-import { SearchPokemon } from '@/domain/usecases/search-pokemon'
 import Context from '@/presentation/contexts/main-context'
+// Styles
+import Styles from './styles/global.scss'
+// MUI Stuff
+import Grid from '@material-ui/core/Grid'
+import { SearchPokemon } from '@/domain/usecases/search-pokemon'
+// Components
 import Result from '@/presentation/components/Result/Result'
 import Form from '@/presentation/components/Form/Form'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
+import Favorite from '@/presentation/components/Favorite/Favorite'
 
 type Props = {
   searchPokemon: SearchPokemon
@@ -30,13 +33,8 @@ const App: React.FC<Props> = ({ searchPokemon }: Props) => {
             <span>{state.mainError}</span>
           )}
         </Grid>
-        <Grid item xs={12} sm={4} md={4} lg={4} className={Styles.favoriteSection}>
-          <Paper elevation={4} className={Styles.paper}>
-            <h2 className={Styles.h2}>Favoritos</h2>
-            {state.favoriteList.length === 0 && (
-              <h3 className={Styles.h3}>Carrinho Vazio</h3>
-            )}
-          </Paper>
+        <Grid item xs={12} sm={4} md={4} lg={4}>
+          <Favorite />
         </Grid>
       </Grid>
     </Context.Provider>
