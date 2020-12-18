@@ -33,7 +33,7 @@ const App: React.FC<Props> = ({ searchPokemon }: Props) => {
             <span>{state.mainError}</span>
           )}
         </Grid>
-        <Grid item xs={12} sm={4} md={4} lg={4}>
+        <Grid item xs={12} sm={4} md={4} lg={4} className={Styles.favorite}>
           <Favorite />
         </Grid>
       </Grid>

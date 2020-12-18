@@ -18,9 +18,14 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    align-self: baseline;
   
     .logo {
       margin: 28px;
     }
+  }
+
+  .favorite {
+    align-self: baseline;
   }
 }
