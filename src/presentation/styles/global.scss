@@ -8,14 +8,35 @@ body {
   background-color: #378e8e;
 }
 
-.mainSection {
+.wrap {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  height: 80vh;
-  justify-content: center;
+  justify-content: space-around;
 
-  .logo {
-    margin: 28px;
+  .mainSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+    justify-content: center;
+  
+    .logo {
+      margin: 28px;
+    }
+  }
+
+  .favoriteSection {
+    .paper {
+      padding: 28px;
+
+      .h2, .h3 {
+        text-align: center;
+      }
+
+      .h3 {
+        font-weight: 200;
+        margin-top: 28px;
+      }
+    }
   }
 }

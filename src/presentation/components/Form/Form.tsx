@@ -38,6 +38,7 @@ const Form: React.FC = () => {
       if (error.message === 'Request failed with status code 404') {
         setState({
           ...state,
+          pokemon: null,
           mainError: 'Pokemon não encontrado'
         })
         throw new NotFoundError()
