@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Styles from './styles/global.scss'
 // MUI Stuff
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { SearchPokemon } from '@/domain/usecases/search-pokemon'
+import Context from '@/presentation/contexts/result-context'
+import Result from '@/presentation/components/Result/Result'
+import { NotFoundError } from '@/domain/errors'
 
 type Props = {
   searchPokemon: SearchPokemon
@@ -12,8 +15,13 @@ type Props = {
 const App: React.FC<Props> = ({ searchPokemon }: Props) => {
   const [state, setState] = useState({
     pokemonName: '',
-    pokemon: {}
+    pokemon: null,
+    mainError: ''
   })
+
+  useEffect(() => {
+
+  }, [state.pokemon])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setState({
@@ -25,16 +33,28 @@ const App: React.FC<Props> = ({ searchPokemon }: Props) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
 
-    const pokemonParams = {
-      name: state.pokemonName
+    try {
+      if (state.pokemonName.trim() === '') {
+        return
+      }
+      const pokemonParams = {
+        name: state.pokemonName
+      }
+
+      const pokemonResult = await searchPokemon.search(pokemonParams)
+      setState({
+        ...state,
+        pokemon: pokemonResult
+      })
+    } catch (error) {
+      if (error.message === 'Request failed with status code 404') {
+        setState({
+          ...state,
+          mainError: 'Pokemon não encontrado'
+        })
+        throw new NotFoundError()
+      }
     }
-
-    const pokemonResult = await searchPokemon.search(pokemonParams)
-
-    setState({
-      ...state,
-      pokemon: pokemonResult
-    })
   }
 
   return (
@@ -53,7 +73,12 @@ const App: React.FC<Props> = ({ searchPokemon }: Props) => {
         />
         <Button type="submit" variant="contained" color="primary" >Pesquisar</Button>
       </form>
-      {console.log(state.pokemon)}
+      <Context.Provider value={state.pokemon}>
+        <Result />
+      </Context.Provider>
+      {state.mainError && (
+        <span>{state.mainError}</span>
+      )}
     </section>
   )
 }

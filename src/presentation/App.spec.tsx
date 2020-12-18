@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, cleanup, RenderResult, fireEvent } from '@testing-library/react'
+import { render, cleanup, RenderResult, fireEvent, waitFor } from '@testing-library/react'
 import { SearchPokemonSpy } from './test/mock-pokemon-search'
 import App from './App'
 import faker from 'faker'
@@ -24,15 +24,23 @@ describe('App', () => {
   test('Should start with initial state', () => {
     const { sut } = makeSut()
     const element = sut.getByTestId('main-section')
-    expect(element.childElementCount).toBe(2)
+    expect(element.childElementCount).toBe(3)
   })
 
-  test('Should call searchPokemon wih correct value', () => {
+  test('Should start with initial state', () => {
+    const { sut } = makeSut()
+    const element = sut.getByTestId('result-section')
+    expect(element.childElementCount).toBe(0)
+  })
+
+  test('Should call searchPokemon with correct value', async () => {
     const { sut, searchPokemonSpy } = makeSut()
     const pokemonName = faker.random.word()
     const input = sut.getByTestId('input')
     fireEvent.input(input, { target: { value: pokemonName } })
-    fireEvent.submit(sut.getByTestId('form'))
+    const form = sut.getByTestId('form')
+    fireEvent.submit(form)
+    await waitFor(() => form)
     expect(searchPokemonSpy.params).toEqual({ name: pokemonName })
   })
 })
